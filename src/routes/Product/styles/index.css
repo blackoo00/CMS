@@ -1,0 +1,14 @@
+.my-antd-label{
+    color: rgba(0,0,0,.85);
+    position: relative;
+    line-height: 39.9999px;
+}
+.my-antd-label:after{
+    content: ":";
+    margin: 0 8px 0 2px;
+    position: relative;
+    top: -.5px;
+}
+.dynamic-delete-button{
+    line-height: 36px;
+}

@@ -1,0 +1,4 @@
+export default {
+    PDETAIL_INIT: 'PDETAIL_INIT',
+    PDETAIL_UNMOUNT: 'PDETAIL_UNMOUNT',
+};
