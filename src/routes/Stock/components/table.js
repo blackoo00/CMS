@@ -1,5 +1,7 @@
 import React from 'react'
-import { Button, Icon, Input, Table } from 'antd'
+import SnapUser from './snap-user'
+import SnapProd from './snap-prod'
+import { Button, Icon, Input, Table,Popover } from 'antd'
 
 class App extends React.Component {
     state = {
@@ -97,7 +99,10 @@ class App extends React.Component {
         },{
             title: 'Icon',
             dataIndex: 'snap_product.main_img_url',
-            render: (text) => <img style={{width:'80px'}} src={text} />
+            render: (text, record) =>
+                <Popover content={<SnapProd info={record.snap_product}/>} title={record.snap_product.name} trigger="hover">
+                    <img style={{width:'80px'}} src={text} />
+                </Popover>,
         },{
             title: 'Change',
             dataIndex: 'stock',
@@ -125,6 +130,10 @@ class App extends React.Component {
                     <Button type="primary" onClick={this.onSearch}>Search</Button>
                 </div>
             ),
+            render: (text, record) =>
+                <Popover content={<SnapUser info={record.snap_user}/>} title={text} trigger="hover">
+                    {text}
+                </Popover>,
             filterIcon: <Icon type="smile-o" style={{ color: this.state.filtered ? '#108ee9' : '#aaa' }} data-type="buyer" onClick={this.readySearch}/>,
             filterDropdownVisible: this.state.filterDropdownVisible,
             onFilterDropdownVisibleChange: (visible) => {

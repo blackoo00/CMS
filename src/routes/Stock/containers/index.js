@@ -9,11 +9,18 @@ class App extends Component {
         super()
     }
     componentWillMount(){
-        let {initData} = this.props;
-        initData();
+        const key = this.props.location.query.key;
+        let {initData,searchData} = this.props;
+        if(key){
+            searchData({
+                prodSearchText: key,
+            })
+        }else{
+            initData();
+        }
     }
     render() {
-        const {stock,searchData,closeSearch,chooseDate,chooseStatus,initData,orderData} = this.props;
+        const {stock,searchData,initData,orderData} = this.props;
         return (
             <div>
                 <SectionMain

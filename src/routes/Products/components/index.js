@@ -72,13 +72,14 @@ class App extends React.Component {
         },{
             title: 'Stock',
             dataIndex: 'stock',
+            render:(text,record) => <Link to={'/stock?key='+record.name}>{text}</Link>
         },{
             title: 'Category',
             dataIndex: 'cat_name',
         },{
             title: 'Operation',
             dataIndex: 'id',
-            render: (text) => <Link to={'/product/'+text}><Button type="primary">详情</Button></Link>
+            render: (text) => <Link to={'/product?id='+text}><Button type="primary">详情</Button></Link>
         }];
         return <Table columns={columns} dataSource={this.state.data} pagination={{current:this.props.currentPage,total:this.state.total,pageSize:this.state.pageSize}} onChange={this.pageChange} rowKey="id"/>;
     }

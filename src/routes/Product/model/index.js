@@ -26,5 +26,15 @@ export default{
             }
             console.log(res);
         })
+    },
+    getCats:() => {
+        const options = {
+            url:'cats/all'
+        }
+        return new Promise(resolve => {
+            model.ajaxData(options).then(res => {
+                resolve(res);
+            })
+        })
     }
 }

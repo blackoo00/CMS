@@ -8,11 +8,14 @@ class App extends Component {
         super()
     }
     componentWillMount(){
-        let id = this.props.params.id
-        let {init} = this.props
-        if(id != 0){
+        let id = this.props.location.query.id
+        let {init,addInit,getCats} = this.props
+        if(typeof id != 'undefined' && id != 0){
             init(id)
+        }else{
+            // addInit()
         }
+        getCats();
     }
     /*
     * 卸载
@@ -20,8 +23,9 @@ class App extends Component {
     * 中绑定数据，所以只能进行卸载，然后再进行数据绑定
     * */
     componentWillUnmount(){
-        const {unmount} = this.props;
-        unmount();
+        const {unmount,addInit} = this.props;
+        // unmount();
+        addInit();
     }
     render(){
         const {...rest} = this.props;
@@ -49,6 +53,12 @@ const mapDispatchToProp = dispatch => ({
     },
     createOrUpdate:(data,info) => {
         dispatch(actions.createOrUpdate(data,info))
+    },
+    addInit: (id) => {
+        dispatch(actions.addInit(id))
+    },
+    getCats:() => {
+        dispatch(actions.getCats())
     }
 })
 

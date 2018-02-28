@@ -42,3 +42,35 @@ export const createOrUpdate = (data,info) => dispatch => {
     post_data['is_on_sale'] = post_data['is_on_sale'] ? 1 :0;
     model.updateData(post_data);
 }
+
+export const addInit = () => ({
+    type:types.PDETAIL_ADD_INIT,
+    data:{
+        id:'',
+        name:'',
+        price:'',
+        start_count:'',
+        stock:'',
+        details:'',
+        sales_count:'',
+        main_img_url:'',
+        summary:'',
+        img_id:'',
+        is_on_sale:true,
+        is_discount:0,
+        cat_name:'',
+        properties:[],
+        discount:[]
+    }
+})
+
+export const getCats = () => dispatch => {
+    model.getCats().then(res => {
+        dispatch(getCatsDip(res))
+    })
+}
+
+const getCatsDip = data => ({
+    type:types.PDETAIL_CATEGORY,
+    data:data
+})

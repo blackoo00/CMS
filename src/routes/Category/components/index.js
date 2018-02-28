@@ -69,7 +69,10 @@ class App extends React.Component {
         },{
             title: 'Operation',
             dataIndex: 'id',
-            render: (text) => <Link to={'products/' + text}><Button  type="primary">产品</Button></Link>
+            render: (text) => <div>
+                <Link to={'products/' + text}><Button  type="primary" style={{marginRight:'8px'}}>查看产品</Button></Link>
+                <Link to={'product?cid=' + text}><Button  type="primary">添加产品</Button></Link>
+            </div>
         }];
         return <Table columns={columns} dataSource={this.state.data} pagination={{total:this.state.total,pageSize:this.state.pageSize}} onChange={this.pageChange} rowKey="id"/>;
     }

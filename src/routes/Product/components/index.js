@@ -1,5 +1,6 @@
 import React from 'react'
 import Name from './name'
+import Category from './category'
 import Price from './price'
 import Stock from './stock'
 import Logo from './logo'
@@ -65,6 +66,12 @@ class App extends React.Component{
                         getFieldDecorator={getFieldDecorator}
                         formItemLayout={formItemLayout}
                         style={style}
+                    />
+                    <Category
+                        getFieldDecorator={getFieldDecorator}
+                        formItemLayout={formItemLayout}
+                        style={style}
+                        cats={info.categories}
                     />
                     <Price
                         getFieldDecorator={getFieldDecorator}
