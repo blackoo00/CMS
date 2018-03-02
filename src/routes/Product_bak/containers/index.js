@@ -15,7 +15,7 @@ class App extends Component {
         }else{
             // addInit()
         }
-        getCats();
+        // getCats();
     }
     /*
     * 卸载
@@ -24,8 +24,7 @@ class App extends Component {
     * */
     componentWillUnmount(){
         const {unmount,addInit} = this.props;
-        // unmount();
-        addInit();
+        unmount();
     }
     render(){
         const {...rest} = this.props;

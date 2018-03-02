@@ -8,6 +8,7 @@ let uuid = 0
 class DynamicFieldSet extends Component {
     componentDidMount(){
         const { form,list } = this.props;
+        console.log(list);
         let keys = [];
         if(list.length != 0){
             list.map((item,index) => {

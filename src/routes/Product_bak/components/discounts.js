@@ -5,7 +5,7 @@ const FormItem = Form.Item
 
 let uuid = 0
 
-class DynamicFieldSet extends Component {
+class Discount extends Component {
     componentDidMount(){
         const { form,list } = this.props;
         let keys = [];
@@ -14,14 +14,14 @@ class DynamicFieldSet extends Component {
                 keys.push(index)
             })
             form.setFieldsValue({
-                keys: keys
+                dkeys: keys
             })
         }
     }
     remove = (k) => {
         const { form } = this.props
         // can use data-binding to get
-        const keys = form.getFieldValue('keys')
+        const keys = form.getFieldValue('dkeys')
         // We need at least one passenger
         if (keys.length === 0) {
             return
@@ -29,17 +29,17 @@ class DynamicFieldSet extends Component {
 
         // can use data-binding to set
         form.setFieldsValue({
-            keys: keys.filter(key => key !== k),
+            dkeys: keys.filter(key => key !== k),
         })
     }
 
     add = () => {
         const { form } = this.props
-        const keys = form.getFieldValue('keys')
+        const keys = form.getFieldValue('dkeys')
         const nextKeys = keys.concat(uuid)
         uuid++
         form.setFieldsValue({
-            keys: nextKeys,
+            dkeys: nextKeys,
         })
     }
 
@@ -54,15 +54,15 @@ class DynamicFieldSet extends Component {
         const formItemLayoutWithLabel = {
             labelCol: {
                 xs: { span: 24 },
-                sm: { span: 6, offset: 0 },
+                sm: { span: 7, offset: 0 },
             },
             wrapperCol: {
                 xs: { span: 24, offset: 0 },
-                sm: { span: 18, offset: 0 },
+                sm: { span: 17, offset: 0 },
             },
         }
-        getFieldDecorator('keys', { initialValue: [] })
-        const keys = getFieldValue('keys')
+        getFieldDecorator('dkeys', { initialValue: [] })
+        const keys = getFieldValue('dkeys')
         const formItems = keys.map((k, index) => {
             return (
                 <Row
@@ -72,7 +72,7 @@ class DynamicFieldSet extends Component {
                         <FormItem
                             style={{display:'none'}}
                         >
-                            {getFieldDecorator(`properties[${k}]['id']`, {
+                            {getFieldDecorator(`discount[${k}]['id']`, {
                                 initialValue:list.length != 0 ? list[k]['id'] : '',
                             })(
                                 <div></div>
@@ -80,38 +80,40 @@ class DynamicFieldSet extends Component {
                         </FormItem>
                         <FormItem
                             {...formItemLayoutWithLabel}
-                            label={'name'}
+                            label={'count'}
                             hasFeedback
                         >
-                            {getFieldDecorator(`properties[${k}]['name']`, {
+                            {getFieldDecorator(`discount[${k}]['count']`, {
                                 validateTrigger: ['onChange', 'onBlur'],
-                                initialValue:list.length != 0 ?list[k]['name'] : '',
+                                initialValue:list.length != 0 ? list[k]['count'].toString() : '',
                                 rules: [{
                                     required: true,
                                     whitespace: true,
-                                    message: 'Please input property\'s name or delete this field.',
+                                    pattern:'^[0-9]*[1-9][0-9]*$',
+                                    message: 'Please input count\'s discount or delete this field.',
                                 }],
                             })(
-                                <Input placeholder="proterty name"/>
+                                <Input placeholder="discount`count"/>
                             )}
                         </FormItem>
                     </Col>
                     <Col span={7}>
                         <FormItem
                             {...formItemLayoutWithLabel}
-                            label={'detail'}
+                            label={'discount'}
                             hasFeedback
                         >
-                            {getFieldDecorator(`properties[${k}]['detail']`, {
+                            {getFieldDecorator(`discount[${k}]['discount']`, {
                                 validateTrigger: ['onChange', 'onBlur'],
-                                initialValue:list.length != 0 ?list[k]['name'] : '',
+                                initialValue:list.length != 0 ? list[k]['discount'].toString() : '',
                                 rules: [{
                                     required: true,
                                     whitespace: true,
-                                    message: 'Please input property\'s detail or delete this field.',
+                                    pattern:'^[0-9]*[1-9][0-9]*$',
+                                    message: 'Please input discount\'s detail or delete this field.',
                                 }],
                             })(
-                                <Input placeholder="proterty detail"/>
+                                <Input placeholder="count`s discount"/>
                             )}
                         </FormItem>
                     </Col>
@@ -130,14 +132,14 @@ class DynamicFieldSet extends Component {
             <Row>
                 <Col span={4} style={{textAlign:'right'}}>
                     <label className="my-antd-label">
-                        Properties
+                        Discounts
                     </label>
                 </Col>
                 <Col span={20}>
                     {formItems}
                     <FormItem {...formItemLayoutWithOutLabel}>
                         <Button offset={4} type="dashed" onClick={this.add} style={{ width: '60%' }}>
-                            <Icon type="plus"/> Add property
+                            <Icon type="plus"/> Add discount
                         </Button>
                     </FormItem>
                 </Col>
@@ -146,4 +148,4 @@ class DynamicFieldSet extends Component {
     }
 }
 
-export default DynamicFieldSet
+export default Discount
